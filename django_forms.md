@@ -5,7 +5,7 @@ If you have worked with models in django then you will find similarities between
 A form’s fields are themselves classes; they manage form data and perform validation when a form is submitted. A form field is represented to a user in the browser as an HTML “widget” - a piece of user interface machinery. Each field type has an appropriate default Widget class, but these can be overridden as required.
 
 ### Creating a form in django: 
-1. Using Pure HTML:
+#### 1. Using Pure HTML:
 Suppose you want to create a form on website in order to sign up for your website. The HTML form might look like below: 
 ```
 <form action="/sign-up/" method="post">
@@ -20,10 +20,9 @@ Suppose you want to create a form on website in order to sign up for your websit
     <input type="submit" value="OK">
 </form>
 ```
-
 This tells the browser to return the form data to the URL /sign-up/, using the POST method. When the form is submitted, the POST request which is sent to the server will contain the form data. Now you’ll also need a view corresponding to that /sign-up/ URL which will find the appropriate key/value pairs in the request, and then process them.
 
-2. Using Django's Form Class: 
+#### 2. Using Django's Form Class: 
 To build above same form but by using Django's specification we need to create a `forms.py` file inside our application's directory & in that we need to import forms as shown below: 
 ```
 from django import forms 
@@ -34,7 +33,7 @@ class SignUpForm(forms.Form):
 	password = forms.CharField(label="Password", max_length=32, widget=forms.PasswordInput)
 	confirm_password = forms.CharField(label="Confirm Password", max_length=32, widget=forms.PasswordInput)
 ```
-This defines a form for Sign-Up functionality in your website. The CharField() & EmailField() are type of fields to represent type of data. Also, label argument is to meto mention the human-friendly label for that particular field.
+This defines a form for Sign-Up functionality in your website. The CharField() & EmailField() are type of fields to represent type of data. For more information regarding form fields visit [here](https://docs.djangoproject.com/en/3.0/ref/forms/fields/#module-django.forms.fields). Also, label argument is to meto mention the human-friendly label for that particular field.
 
 A Form instance has an is_valid() method, which runs validation routines for all its fields. When this method is called, if all fields contain valid data, it will:
  	- return True
@@ -81,8 +80,8 @@ The template will look like as follow:
     <input type="submit" value="Submit">
 </form>
 ```
-Here, few points need to understand: 
-	1. The method should be POST method which is a HTTP method mainly used for adding data to server. 
-	2. When we use POST method everytime we need to specify `{% csrf_token %}` for securely transffer of our data. For more details visit (here)[https://docs.djangoproject.com/en/3.0/ref/csrf/] 
-	3. `{{ form.as_p }}` will render the fields we have mentioned in `forms.py` file. `as_p` is just to display the field one below another(using line-breaks).
+Here, few points need to understand regarding form template: 
+1. The method should be POST method which is a HTTP method mainly used for adding data to server. 
+2. When we use POST method everytime we need to specify `{% csrf_token %}` for securely transffer of our data. For more details visit [here](https://docs.djangoproject.com/en/3.0/ref/csrf/). 
+3. `{{ form.as_p }}` will render the fields we have mentioned in `forms.py` file. `as_p` is just to display the field one below another(using line-breaks).
 
